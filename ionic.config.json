@@ -1,0 +1,7 @@
+{
+  "name": "enjoy_driver",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
