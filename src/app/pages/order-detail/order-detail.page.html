@@ -41,7 +41,7 @@
           <ion-label class="res_name">{{userphone}}</ion-label>
         </div>
         <div>
-          <ion-button (click)="call()" size="small" fill="outline">Call</ion-button>
+          <ion-button (click)="call()" size="small" fill="outline">{{'CALL' | translate}}</ion-button>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@
         <ion-label class="head_gray">{{'ITEMS' | translate}}</ion-label>
         <div class="small_lbl">
           <ion-label *ngFor="let item of orders">{{item.quantiy}} X {{item.name}} <span
-              class="prize">${{item.price}}</span></ion-label>
+              class="prize">{{'currencyCode' | translate}} {{item.price}}</span></ion-label>
         </div>
         <ion-label class="head_gray">{{'ORDERED ON' | translate}}</ion-label>
         <ion-label class="small_lbl">{{time}} </ion-label>
@@ -112,13 +112,13 @@
     <div class="card_div2">
 
       <div class="order_detail">
-        <ion-label class="small_lbl2">{{'SubTotal' | translate}}<span class="prize1">${{total}}</span></ion-label>
-        <ion-label class="small_lbl2">{{'Delivery Charge' | translate}}<span class="prize1">$5</span></ion-label>
-        <ion-label class="small_lbl2">{{'Service Tax' | translate}}<span class="prize1">${{serviceTax}}</span>
+        <ion-label class="small_lbl2">{{'SubTotal' | translate}}<span class="prize1">{{'currencyCode' | translate}} {{total}}</span></ion-label>
+        <ion-label class="small_lbl2">{{'Delivery Charge' | translate}}<span class="prize1">{{deliveryCharge}}</span></ion-label>
+        <ion-label class="small_lbl2">{{'Service Tax' | translate}}<span class="prize1">{{'currencyCode' | translate}} {{serviceTax}}</span>
         </ion-label>
-        <ion-label class="small_lbl2">{{'Total' | translate}}<span class="prize1">${{grandTotal}}</span></ion-label>
+        <ion-label class="small_lbl2">{{'Total' | translate}}<span class="prize1">{{'currencyCode' | translate}} {{grandTotal}}</span></ion-label>
 
-        <ion-label class="small_lbl2">{{'Way of Payment' | translate}}<span class="prize1 red_color">{{payment}}</span>
+        <ion-label class="small_lbl2">{{'Way of Payment' | translate}}<span class="prize1 red_color">{{payment | translate}}</span>
         </ion-label>
       </div>
 
@@ -140,7 +140,7 @@
     </div> -->
     <div class="status_div" *ngIf="status == 'accepted' || status == 'ongoing' ">
       <div style="width: 200px;">
-        <ion-select placeholder="Choose Status" [(ngModel)]="changeStatusOrder">
+        <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
           <ion-select-option value="ongoing">{{'Ongoing' | translate}}</ion-select-option>
           <ion-select-option value="cancel">{{'Cancel' | translate}}</ion-select-option>
           <ion-select-option value="delivered">{{'Delivered' | translate}}</ion-select-option>

@@ -42,4 +42,17 @@ adb logcat
 ```
 
 ### Pending Task
-- []  
+- [ ] Tabs
+  - [ ] Available orders
+    - [ ] List of restaurants 'ready to go' orders
+    - [ ] Select an order to switch state to 'on going'
+  - [ ] Current Order
+    - [ ] Change state to 'deliverd'
+  - [ ] Past Orders
+- [ ] Translations
+  - [ ] Currency code
+  - [ ] Choose status
+  - [ ] Order Status
+    - [ ] ongoing
+    - [ ] cancel
+    - [ ] delivered

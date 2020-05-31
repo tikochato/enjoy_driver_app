@@ -51,14 +51,14 @@
           <ion-label class="head_gray">{{'ITEMS' | translate}}</ion-label>
           <div class="small_lbl">
             <ion-label *ngFor="let order of item.order">{{order.quantiy}} X {{order.name}} <span
-                class="prize">${{order.price}}</span></ion-label>
+                class="prize">{{'currencyCode' | translate}} {{order.price}}</span></ion-label>
           </div>
           <ion-label class="head_gray">{{'ORDERED ON' | translate}}</ion-label>
           <ion-label class="small_lbl">{{item.time}} </ion-label>
           <ion-label class="head_gray">{{'TOTAL AMOUNT' | translate}}</ion-label>
-          <ion-label class="small_lbl">${{item.grandTotal}}</ion-label>
+          <ion-label class="small_lbl">{{'currencyCode' | translate}} {{item.grandTotal}}</ion-label>
 
-          <ion-label class="payment_status">{{item.paid}}</ion-label>
+          <ion-label class="payment_status">{{item.paid | translate}}</ion-label>
         </div>
 
       </div>
@@ -103,14 +103,14 @@
           <ion-label class="head_gray">{{'ITEMS' | translate}}</ion-label>
           <div class="small_lbl">
             <ion-label *ngFor="let order of item.order">{{order.quantiy}} X {{order.name}} <span
-                class="prize">${{order.price}}</span></ion-label>
+                class="prize">{{'currencyCode' | translate}} {{order.price}}</span></ion-label>
           </div>
           <ion-label class="head_gray">{{'ORDERED ON' | translate}}</ion-label>
           <ion-label class="small_lbl">{{item.time}} </ion-label>
           <ion-label class="head_gray">{{'TOTAL AMOUNT' | translate}}</ion-label>
-          <ion-label class="small_lbl">${{item.grandTotal}}</ion-label>
+          <ion-label class="small_lbl">{{'currencyCode' | translate}} {{item.grandTotal}}</ion-label>
 
-          <ion-label class="payment_status">{{item.status}}</ion-label>
+          <ion-label class="payment_status">{{item.status | translate}}</ion-label>
         </div>
 
       </div>

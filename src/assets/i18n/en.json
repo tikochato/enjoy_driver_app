@@ -27,6 +27,9 @@
     "Ongoing": "Ongoing",
     "Cancel": "Cancel",
     "Delivered": "Delivered",
+    "ongoing": "Ongoing",
+    "cancel": "Cancel",
+    "delivered": "Delivered",
     "Update Status": "Update Status",
     "TO": "TO",
     "My Orders": "My Orders",
@@ -64,5 +67,8 @@
     " Delivered your order": " Delivered your order",
     "Order Picked": "Order Picked",
     " Picked up your order": " Picked up your order",
-    "New Notification": "New Notification"
+    "New Notification": "New Notification",
+    "currencyCode": "$",
+    "cod": "COD",
+    "Choose Status": "Choose Status"
 }

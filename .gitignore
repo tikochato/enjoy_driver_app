@@ -71,3 +71,6 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+signing.md
+enjoy-driver-app-release-key.keystore

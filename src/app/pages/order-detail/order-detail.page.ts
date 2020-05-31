@@ -16,6 +16,7 @@ export class OrderDetailPage implements OnInit {
   grandTotal: any;
   orders: any[] = [];
   serviceTax: any;
+  deliveryCharge: any;
   status: any;
   time: any;
   total: any;
@@ -60,6 +61,7 @@ export class OrderDetailPage implements OnInit {
         this.grandTotal = data.grandTotal;
         this.orders = JSON.parse(data.order);
         this.serviceTax = data.serviceTax;
+        this.deliveryCharge = data.deliveryCharge;
         this.status = data.status;
         this.time = data.time;
         this.total = data.total;
@@ -92,7 +94,7 @@ export class OrderDetailPage implements OnInit {
     this.api.updateOrderStatus(this.id, value).then((data) => {
 
       console.log('data', data);
-      const msg = this.util.translate('Your Order is ') + value + this.util.translate(' By ') + this.restName;
+      const msg = this.util.translate('Your Order is ') + this.util.translate(value) + this.util.translate(' By ') + this.restName;
       if (value === 'delivered' || value === 'cancel') {
         const parm = {
           current: 'active',
@@ -113,7 +115,7 @@ export class OrderDetailPage implements OnInit {
       this.util.publishNewAddress('hello');
       Swal.fire({
         title: this.util.translate('success'),
-        text: this.util.translate('Order status changed to ') + value,
+        text: this.util.translate('Order status changed to ') + this.util.translate(value),
         icon: 'success',
         timer: 2000,
         backdrop: false,
@@ -167,7 +169,7 @@ export class OrderDetailPage implements OnInit {
       this.util.publishNewAddress('hello');
       Swal.fire({
         title: 'success',
-        text: this.util.translate('Order status changed to ') + 'ongoing',
+        text: this.util.translate('Order status changed to ') + this.util.translate('Ongoing'),
         icon: 'success',
         timer: 2000,
         backdrop: false,
