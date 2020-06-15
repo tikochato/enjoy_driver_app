@@ -167,7 +167,6 @@ export class ApiService {
     });
   }
 
-
   sendNotification(msg, title, id) {
     const body = {
       app_id: environment.onesignal.appId,
@@ -187,6 +186,29 @@ export class ApiService {
   public getMyOrders(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('orders', ref => ref.where('driverId', '==', id)).get().subscribe((venue) => {
+        let data = venue.docs.map((element) => {
+          let item = element.data();
+          item.vid.get().then(function (doc) {
+            item.vid = doc.data();
+            item.vid.id = doc.id;
+          });
+          item.uid.get().then(function (doc) {
+            item.uid = doc.data();
+            item.uid.id = doc.id;
+          });
+          item.id = element.id;
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
+  public getReadyOrders(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('orders', ref => ref.where('status', '==', 'ready')).get().subscribe((venue) => {
         let data = venue.docs.map((element) => {
           let item = element.data();
           item.vid.get().then(function (doc) {

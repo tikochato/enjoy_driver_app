@@ -3,28 +3,31 @@ import { Router, NavigationExtras } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UtilService } from 'src/app/services/util.service';
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.page.html',
   styleUrls: ['./orders.page.scss'],
 })
-export class OrdersPage implements OnInit {
 
+export class OrdersPage implements OnInit {
   seg_id = 1;
+  readyOrders: any[] = [];
   orders: any[] = [];
   oldOrders: any;
   dummy = Array(50);
+
   constructor(
     private router: Router,
     private api: ApiService,
     private util: UtilService,
     private adb: AngularFirestore) {
-    // this.getOrders();
     if (localStorage.getItem('uid')) {
       this.adb.collection('orders', ref =>
         ref.where('driverId', '==', localStorage.getItem('uid'))).snapshotChanges().subscribe((data: any) => {
           console.log('paylaoddddd----->>>>', data);
           if (data) {
+            this.getReadyOrders();
             this.getOrders();
           }
         }, error => {
@@ -34,11 +37,28 @@ export class OrdersPage implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   onClick(val) {
     this.seg_id = val;
+  }
+
+  getReadyOrders() {
+    this.readyOrders = [];
+    this.api.getReadyOrders().then((data: any) => {
+      this.dummy = [];
+      console.log(data);
+      if (data) {
+        this.readyOrders = [];
+        data.forEach(element => {
+          element.order = JSON.parse(element.order);
+          this.readyOrders.push(element);
+        });
+      }
+    }).catch(error => {
+      this.dummy = [];
+      console.log('eror', error);
+    });
   }
 
   getOrders() {
@@ -64,16 +84,16 @@ export class OrdersPage implements OnInit {
       console.log('eror', error);
     });
   }
-  goToOrderDetail(ids) {
 
+  goToOrderDetail(ids) {
     const navData: NavigationExtras = {
       queryParams: {
         id: ids
       }
     };
-
     this.router.navigate(['/order-detail'], navData);
   }
+
   getProfilePic(item) {
     return item && item.cover ? item.cover : 'assets/imgs/user.jpg';
   }
