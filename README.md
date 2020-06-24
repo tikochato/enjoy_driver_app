@@ -44,9 +44,10 @@ adb logcat
 ### Pending Task
 - [ ] Tabs
   - [ ] Available orders
-    - [ ] List of restaurants 'ready to go' orders
+    - [x] List of restaurants 'ready to go' orders
     - [ ] Select an order to switch state to 'on going'
   - [ ] Current Order
+    - [ ] Calculate Route
     - [ ] Change state to 'deliverd'
   - [ ] Past Orders
 - [ ] Translations
