@@ -64,7 +64,6 @@
 
     <div class="card_div2">
       <div class="personal_detail">
-
         <div style="display: flex;">
           <ion-icon name="location"></ion-icon>&nbsp;&nbsp;
           <ion-label class="res_name">{{address}}</ion-label>
@@ -78,12 +77,10 @@
 
     <div class="card_div2">
       <div class="personal_detail">
-
         <div style="display: flex;">
           <ion-icon name="location"></ion-icon>&nbsp;&nbsp;
           <ion-label class="res_name">{{deliveryAddress}}</ion-label>
         </div>
-
       </div>
     </div>
 
@@ -112,11 +109,15 @@
     <div class="card_div2">
 
       <div class="order_detail">
-        <ion-label class="small_lbl2">{{'SubTotal' | translate}}<span class="prize1">{{'currencyCode' | translate}} {{total}}</span></ion-label>
-        <ion-label class="small_lbl2">{{'Delivery Charge' | translate}}<span class="prize1">{{'currencyCode' | translate}} {{deliveryCharge}}</span></ion-label>
-        <ion-label class="small_lbl2">{{'Total' | translate}}<span class="prize1">{{'currencyCode' | translate}} {{grandTotal}}</span></ion-label>
+        <ion-label class="small_lbl2">{{'SubTotal' | translate}}<span class="prize1">{{'currencyCode' | translate}}
+            {{total}}</span></ion-label>
+        <ion-label class="small_lbl2">{{'Delivery Charge' | translate}}<span
+            class="prize1">{{'currencyCode' | translate}} {{deliveryCharge}}</span></ion-label>
+        <ion-label class="small_lbl2">{{'Total' | translate}}<span class="prize1">{{'currencyCode' | translate}}
+            {{grandTotal}}</span></ion-label>
 
-        <ion-label class="small_lbl2">{{'Way of Payment' | translate}}<span class="prize1 red_color">{{payment | translate}}</span>
+        <ion-label class="small_lbl2">{{'Way of Payment' | translate}}<span
+            class="prize1 red_color">{{payment | translate}}</span>
         </ion-label>
       </div>
 
@@ -136,11 +137,42 @@
         Deliver
       </ion-button>
     </div> -->
-    <div class="status_div" *ngIf="status == 'accepted' || status == 'ongoing' ">
+
+    <!-- -- ready -- -->
+    <div class="status_div" *ngIf="status == 'ready'">
       <div style="width: 200px;">
         <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
           <ion-select-option value="ongoing">{{'Ongoing' | translate}}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div>
+        <ion-button (click)="changeOrderStatus()" size="small">
+          {{'Update Status' | translate}}
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- -- ongoing -- -->
+    <div class="status_div" *ngIf="status == 'ongoing'">
+      <div style="width: 200px;">
+        <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
+          <ion-select-option value="picked">{{'Delivered' | translate}}</ion-select-option>
           <ion-select-option value="cancel">{{'Cancel' | translate}}</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div>
+        <ion-button (click)="changeOrderStatus()" size="small">
+          {{'Update Status' | translate}}
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- -- ongoing -- -->
+    <div class="status_div" *ngIf="status == 'picked'">
+      <div style="width: 200px;">
+        <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
           <ion-select-option value="delivered">{{'Delivered' | translate}}</ion-select-option>
         </ion-select>
       </div>
@@ -151,6 +183,8 @@
         </ion-button>
       </div>
     </div>
+
+    
     <!-- <ion-label class="green"> Order status : {{status}}</ion-label> -->
   </ion-toolbar>
 </ion-footer>

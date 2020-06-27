@@ -42,6 +42,15 @@ adb logcat
 ```
 
 ### Pending Task
+- [ ] Orders Status / Orders Status Detaills
+  - [ ] created
+  - [ ] accepted
+  - [x] ready
+  - [x] ongoing
+  - [x] picked
+  - [x] delivered
+  - [ ] rejected
+  - [ ] cancel
 - [ ] Tabs
   - [ ] Available orders
     - [x] List of restaurants 'ready to go' orders
