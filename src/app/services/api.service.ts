@@ -230,35 +230,45 @@ export class ApiService {
   }
 
   public getOrderById(id): Promise<any> {
+    console.log(`getOrderById: ${id}`);
     return new Promise<any>(async (resolve, reject) => {
-      this.adb.collection('orders').doc(id).get().subscribe(async (order: any) => {
-        let data = await order.data();
-        await data.vid.get().then(function (doc) {
-          data.vid = doc.data();
-          data.vid.id = doc.id;
+      try {
+        this.adb.collection('orders').doc(id).get().subscribe(async (order: any) => {
+          let data = await order.data();
+          await data.vid.get().then(function (doc) {
+            data.vid = doc.data();
+            data.vid.id = doc.id;
+          });
+          if (data.dId) {
+            await data.dId.get().then(function (doc) {
+              data.dId = doc.id;
+              data.dId = doc.data();
+            })
+          }
+          await data.uid.get().then(function (doc) {
+            data.uid = doc.id;
+            data.uid = doc.data();
+          })
+          resolve(data);
+        }, error => {
+          reject(error);
         });
-        await data.dId.get().then(function (doc) {
-          data.dId = doc.id;
-          data.dId = doc.data();
-        })
-        await data.uid.get().then(function (doc) {
-          data.uid = doc.id;
-          data.uid = doc.data();
-        })
-        resolve(data);
-      }, error => {
+      } catch (error) {
+        console.log('Error getOrderById');
+        console.log(error);
         reject(error);
-      });
+      }
     });
   }
 
-  public updateOrderStatus(id, value): Promise<any> {
+  public updateOrderStatus(id, status, driverId): Promise<any> {
+    let dId = this.db.collection('users').doc(driverId);
     return new Promise<any>(async (resolve, reject) => {
-      this.adb.collection('orders').doc(id).update({ status: value }).then(async (order: any) => {
-        resolve(order);
-      }).catch(error => {
-        reject(error);
-      });
+        this.adb.collection('orders').doc(id).update({ status, dId, driverId }).then(async (order: any) => {
+          resolve(order);
+        }).catch(error => {
+          reject(error);
+        });
     });
   }
 }

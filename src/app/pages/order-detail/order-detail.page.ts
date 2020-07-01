@@ -9,8 +9,8 @@ import Swal from 'sweetalert2';
   templateUrl: './order-detail.page.html',
   styleUrls: ['./order-detail.page.scss'],
 })
-export class OrderDetailPage implements OnInit {
 
+export class OrderDetailPage implements OnInit {
   tab_id;
   id: any;
   grandTotal: any;
@@ -53,9 +53,11 @@ export class OrderDetailPage implements OnInit {
 
   getOrder() {
     // this.util.show();
+    console.log(`get order by id: ${this.id}`);
     this.api.getOrderById(this.id).then((data) => {
       // this.util.hide();
       this.loaded = true;
+      console.log(`Order id: ${this.id}`);
       console.log(data);
       if (data) {
         this.grandTotal = data.grandTotal;
@@ -73,15 +75,10 @@ export class OrderDetailPage implements OnInit {
         this.userphone = data.uid.phone;
         this.usercover = data.uid && data.uid.cover ? data.uid.cover : 'assets/imgs/user.jpg';;
         this.payment = data.paid;
-        this.myname = data.dId.fullname;
+        this.myname = data.dId ? data.dId.fullname: '';
         this.token = data.uid.fcm_token;
         console.log('this', this.orders);
       }
-    }, error => {
-      console.log('error in orders', error);
-      // this.util.hide();
-      this.loaded = true;
-      this.util.errorToast(this.util.translate('Something went wrong'));
     }).catch(error => {
       console.log('error in order', error);
       // this.util.hide();
@@ -89,23 +86,24 @@ export class OrderDetailPage implements OnInit {
       this.util.errorToast(this.util.translate('Something went wrong'));
     });
   }
-  changeStatus(value) {
-    this.util.show();
-    this.api.updateOrderStatus(this.id, value).then((data) => {
 
+  changeStatus(status) {
+    this.util.show();
+    const userId = localStorage.getItem('uid');
+    this.api.updateOrderStatus(this.id, status, userId).then((data) => {
       console.log('data', data);
-      const msg = this.util.translate('Your Order is ') + this.util.translate(value) + this.util.translate(' By ') + this.restName;
-      if (value === 'delivered' || value === 'cancel') {
+      const msg = this.util.translate('Your Order is ') + this.util.translate(status) + this.util.translate(' By ') + this.restName;
+      if (status === 'delivered' || status === 'cancel') {
         const parm = {
           current: 'active',
         };
-        this.api.updateProfile(localStorage.getItem('uid'), parm).then((data) => {
+        this.api.updateProfile(userId, parm).then((data) => {
           console.log('driver status cahcnage----->', data);
         }).catch(error => {
           console.log(error);
         });
       }
-      this.api.sendNotification(msg, 'Order ' + value, this.token).subscribe((data) => {
+      this.api.sendNotification(msg, 'Order ' + status, this.token).subscribe((data) => {
         console.log(data);
         this.util.hide();
       }, error => {
@@ -115,7 +113,7 @@ export class OrderDetailPage implements OnInit {
       this.util.publishNewAddress('hello');
       Swal.fire({
         title: this.util.translate('success'),
-        text: this.util.translate('Order status changed to ') + this.util.translate(value),
+        text: this.util.translate('Order status changed to ') + this.util.translate(status),
         icon: 'success',
         timer: 2000,
         backdrop: false,
@@ -145,9 +143,11 @@ export class OrderDetailPage implements OnInit {
     };
     this.router.navigate(['/tracker'], navData);
   }
+
   call() {
     window.open('https://api.whatsapp.com/send?phone=91' + this.userphone);
   }
+
   mail() {
     window.open('mailto:' + this.useremail);
   }
@@ -156,9 +156,11 @@ export class OrderDetailPage implements OnInit {
     this.util.publishNewAddress('hello');
     this.navCtrl.back();
   }
+
   picked() {
     this.util.show();
-    this.api.updateOrderStatus(this.id, 'ongoing').then((data) => {
+    const userId = localStorage.getItem('uid');
+    this.api.updateOrderStatus(this.id, 'ongoing', userId).then((data) => {
       console.log(data);
       this.util.hide();
       const msg = this.myname + this.util.translate(' Picked up your order');
@@ -187,14 +189,15 @@ export class OrderDetailPage implements OnInit {
 
   delivered() {
     this.util.show();
-    this.api.updateOrderStatus(this.id, 'delivered').then((data) => {
+    const userId = localStorage.getItem('uid');
+    this.api.updateOrderStatus(this.id, 'delivered', userId).then((data) => {
       console.log(data);
       this.util.hide();
       const msg = this.myname + this.util.translate(' Delivered your order');
       const parm = {
         current: 'active',
       };
-      this.api.updateProfile(localStorage.getItem('uid'), parm).then((data) => {
+      this.api.updateProfile(userId, parm).then((data) => {
         console.log('driver status cahcnage----->', data);
       }).catch(error => {
         console.log(error);

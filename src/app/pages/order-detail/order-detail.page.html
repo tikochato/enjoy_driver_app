@@ -86,7 +86,7 @@
 
     <div class="card_div2">
       <div class="personal_detail">
-        <div *ngIf="status =='ongoing' || status =='created' || status =='picked' || status =='accepted'">
+        <div *ngIf="status =='ready' || status =='ongoing' || status =='picked'">
           <ion-button (click)="goToTracker()" size="small" fill="outline">{{'Navigate' | translate}}</ion-button>
         </div>
       </div>

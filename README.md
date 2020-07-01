@@ -54,10 +54,11 @@ adb logcat
 - [ ] Tabs
   - [ ] Available orders
     - [x] List of restaurants 'ready to go' orders
-    - [ ] Select an order to switch state to 'on going'
+    - [x] Select an order to switch state to 'ongoing'
   - [ ] Current Order
     - [ ] Calculate Route
-    - [ ] Change state to 'deliverd'
+    - [x] Change state to 'picked'
+    - [x] Change state to 'deliverd'
   - [ ] Past Orders
 - [ ] Translations
   - [ ] Currency code

@@ -66,6 +66,7 @@ export class OrdersPage implements OnInit {
     this.oldOrders = [];
     this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
       this.dummy = [];
+      console.log('My orders');
       console.log(data);
       if (data) {
         this.orders = [];
