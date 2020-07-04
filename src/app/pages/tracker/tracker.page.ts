@@ -30,6 +30,7 @@ export class TrackerPage implements OnInit {
   status: any = '';
   totalOrders: any[] = [];
   grandTotal: any;
+  paid: any;
 
   driverLat: any;
   driverLng: any;
@@ -59,6 +60,7 @@ export class TrackerPage implements OnInit {
     this.util.show();
     this.api.getOrderById(this.id).then((data) => {
       this.util.hide();
+      console.log("getOrderById");
       console.log(data);
       if (data) {
         this.dName = data.dId.fullname;
@@ -69,6 +71,7 @@ export class TrackerPage implements OnInit {
         this.status = data.status;
         this.grandTotal = data.grandTotal;
         this.totalOrders = JSON.parse(data.order);
+        this.paid = data.paid;
         // this.getDriverInfo();
         console.log('my order', this.totalOrders);
         this.loadMap(parseFloat(data.address.lat), parseFloat(data.address.lng), parseFloat(data.vid.lat), parseFloat(data.vid.lng));

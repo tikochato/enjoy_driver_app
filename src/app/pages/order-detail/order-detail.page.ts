@@ -128,10 +128,10 @@ export class OrderDetailPage implements OnInit {
     });
   }
 
-  changeOrderStatus() {
-    console.log('order status', this.changeStatusOrder);
-    if (this.changeStatusOrder) {
-      this.changeStatus(this.changeStatusOrder);
+  changeOrderStatus(status) {
+    console.log('order status', status);
+    if (status) {
+      this.changeStatus(status);
     }
   }
 

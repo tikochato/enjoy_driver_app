@@ -139,52 +139,22 @@
     </div> -->
 
     <!-- -- ready -- -->
-    <div class="status_div" *ngIf="status == 'ready'">
-      <div style="width: 200px;">
-        <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
-          <ion-select-option value="ongoing">{{'Ongoing' | translate}}</ion-select-option>
-        </ion-select>
-      </div>
-
-      <div>
-        <ion-button (click)="changeOrderStatus()" size="small">
-          {{'Update Status' | translate}}
-        </ion-button>
-      </div>
+    <div *ngIf="status == 'ready'">
+        <ion-button color="success" expand="block" (click)="changeOrderStatus('ongoing')">{{'Ongoing' | translate}}</ion-button>
     </div>
 
     <!-- -- ongoing -- -->
-    <div class="status_div" *ngIf="status == 'ongoing'">
-      <div style="width: 200px;">
-        <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
-          <ion-select-option value="picked">{{'Delivered' | translate}}</ion-select-option>
-          <ion-select-option value="cancel">{{'Cancel' | translate}}</ion-select-option>
-        </ion-select>
-      </div>
-
-      <div>
-        <ion-button (click)="changeOrderStatus()" size="small">
-          {{'Update Status' | translate}}
-        </ion-button>
-      </div>
+    <div *ngIf="status == 'ongoing'">
+        <ion-button color="success" expand="block" (click)="changeOrderStatus('ready')">{{'Cancel' | translate}}</ion-button>
+        <ion-button color="success" expand="block" (click)="changeOrderStatus('picked')">{{'Picked' | translate}}</ion-button>
     </div>
 
     <!-- -- ongoing -- -->
-    <div class="status_div" *ngIf="status == 'picked'">
-      <div style="width: 200px;">
-        <ion-select placeholder="{{'Choose Status' | translate}}" [(ngModel)]="changeStatusOrder">
-          <ion-select-option value="delivered">{{'Delivered' | translate}}</ion-select-option>
-        </ion-select>
-      </div>
-
-      <div>
-        <ion-button (click)="changeOrderStatus()" size="small">
-          {{'Update Status' | translate}}
-        </ion-button>
-      </div>
+    <div *ngIf="status == 'picked'">
+        <ion-button color="success" expand="block" (click)="changeOrderStatus('delivered')">{{'Delivered' | translate}}</ion-button>
     </div>
 
-    
+
     <!-- <ion-label class="green"> Order status : {{status}}</ion-label> -->
   </ion-toolbar>
 </ion-footer>
