@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   ) {
     const lng = localStorage.getItem('language');
     if (!lng || lng === null) {
-      localStorage.setItem('language', 'en');
+      localStorage.setItem('language', 'spanish');
     }
     this.oneSignal.getIds().then((data) => {
       console.log('iddddd', data);
