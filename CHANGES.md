@@ -1,5 +1,6 @@
 # v1.0.0
 - Refresh orders
+- Order orders by timestamp
 
 # v0.0.2
 - Add `ready` orders tab

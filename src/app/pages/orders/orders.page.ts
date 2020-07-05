@@ -49,6 +49,7 @@ export class OrdersPage implements OnInit {
       this.dummy = [];
       console.log(data);
       if (data) {
+        data.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
         this.readyOrders = [];
         data.forEach(element => {
           element.order = JSON.parse(element.order);
@@ -69,6 +70,7 @@ export class OrdersPage implements OnInit {
       console.log('My orders');
       console.log(data);
       if (data) {
+        data.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
         this.orders = [];
         this.oldOrders = [];
         data.forEach(element => {
