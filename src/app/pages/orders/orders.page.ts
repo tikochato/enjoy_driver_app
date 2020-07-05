@@ -22,18 +22,18 @@ export class OrdersPage implements OnInit {
     private api: ApiService,
     private util: UtilService,
     private adb: AngularFirestore) {
-    if (localStorage.getItem('uid')) {
-      this.adb.collection('orders', ref =>
-        ref.where('driverId', '==', localStorage.getItem('uid'))).snapshotChanges().subscribe((data: any) => {
-          console.log('paylaoddddd----->>>>', data);
-          if (data) {
-            this.getReadyOrders();
-            this.getOrders();
-          }
-        }, error => {
-          console.log(error);
-        });
-    }
+      if (localStorage.getItem('uid')) {
+        this.adb.collection('orders', ref =>
+          ref.where('driverId', '==', localStorage.getItem('uid'))).snapshotChanges().subscribe((data: any) => {
+            console.log('paylaoddddd----->>>>', data);
+            if (data) {
+              this.getReadyOrders();
+              this.getOrders();
+            }
+          }, error => {
+            console.log(error);
+          });
+      }
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class OrdersPage implements OnInit {
 
   getReadyOrders() {
     this.readyOrders = [];
-    this.api.getReadyOrders().then((data: any) => {
+    return this.api.getReadyOrders().then((data: any) => {
       this.dummy = [];
       console.log(data);
       if (data) {
@@ -64,7 +64,7 @@ export class OrdersPage implements OnInit {
   getOrders() {
     this.orders = [];
     this.oldOrders = [];
-    this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
+    return this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
       this.dummy = [];
       console.log('My orders');
       console.log(data);
@@ -97,5 +97,14 @@ export class OrdersPage implements OnInit {
 
   getProfilePic(item) {
     return item && item.cover ? item.cover : 'assets/imgs/user.jpg';
+  }
+
+  doRefresh(event) {
+    Promise.all([
+      this.getReadyOrders(),
+      this.getOrders(),
+    ]).then(()=>{
+      event.target.complete();
+    });
   }
 }

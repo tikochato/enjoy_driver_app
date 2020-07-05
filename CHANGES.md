@@ -1,3 +1,6 @@
+# v1.0.0
+- Refresh orders
+
 # v0.0.2
 - Add `ready` orders tab
 - Drivers can grab `ready` orders

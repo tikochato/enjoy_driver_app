@@ -42,7 +42,7 @@ adb logcat
 ```
 
 ### Pending Task
-- [ ] Orders Status / Orders Status Detaills
+- [ ] Orders Status / Orders Status Details
   - [ ] created
   - [ ] accepted
   - [x] ready

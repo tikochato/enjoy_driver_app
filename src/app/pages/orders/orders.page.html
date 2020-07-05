@@ -11,6 +11,9 @@
 
 <ion-content>
   <div class="main_content_div">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
     <div class="centent_div" *ngIf="seg_id == 1">
       <h2 class="ion-text-center" *ngIf="!dummy?.length && !readyOrders?.length">{{'No Order' | translate}}</h2>

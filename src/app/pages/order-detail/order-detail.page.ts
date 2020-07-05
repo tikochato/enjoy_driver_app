@@ -171,7 +171,7 @@ export class OrderDetailPage implements OnInit {
       this.util.publishNewAddress('hello');
       Swal.fire({
         title: 'success',
-        text: this.util.translate('Order status changed to ') + this.util.translate('Ongoing'),
+        text: this.util.translate('Order status changed to ') + this.util.translate('ongoing'),
         icon: 'success',
         timer: 2000,
         backdrop: false,
