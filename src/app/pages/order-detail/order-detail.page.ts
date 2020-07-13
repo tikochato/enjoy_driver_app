@@ -145,7 +145,8 @@ export class OrderDetailPage implements OnInit {
   }
 
   call() {
-    window.open('https://api.whatsapp.com/send?phone=91' + this.userphone);
+    // window.open('https://api.whatsapp.com/send?phone=91' + this.userphone);
+    window.open('tel:' + this.userphone);
   }
 
   mail() {

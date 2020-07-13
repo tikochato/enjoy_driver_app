@@ -34,7 +34,7 @@
     <div class="line_div"></div>
 
 
-    <div class="card_div2" *ngIf="userphone">
+    <div class="card_div2" *ngIf="userphone && status == 'picked'">
       <div class="personal_detail">
         <div style="display: flex;">
           <ion-icon name="call"></ion-icon>&nbsp;&nbsp;
@@ -42,20 +42,6 @@
         </div>
         <div>
           <ion-button (click)="call()" size="small" fill="outline">{{'CALL' | translate}}</ion-button>
-        </div>
-      </div>
-    </div>
-
-    <div class="line_div"></div>
-
-    <div class="card_div2" *ngIf="useremail">
-      <div class="personal_detail">
-        <div style="display: flex;">
-          <ion-icon name="mail"></ion-icon>&nbsp;&nbsp;
-          <ion-label class="res_name">{{useremail}}</ion-label>
-        </div>
-        <div>
-          <ion-button (click)="mail()" size="small" fill="outline">{{'Email' | translate}}</ion-button>
         </div>
       </div>
     </div>
@@ -140,18 +126,30 @@
 
     <!-- -- ready -- -->
     <div *ngIf="status == 'ready'">
-        <ion-button color="success" expand="block" (click)="changeOrderStatus('ongoing')">{{'Ongoing' | translate}}</ion-button>
+      <ion-button color="success" expand="block" (click)="changeOrderStatus('ongoing')">{{'Ongoing' | translate}}
+      </ion-button>
     </div>
 
     <!-- -- ongoing -- -->
     <div *ngIf="status == 'ongoing'">
-        <ion-button color="success" expand="block" (click)="changeOrderStatus('ready')">{{'Cancel' | translate}}</ion-button>
-        <ion-button color="success" expand="block" (click)="changeOrderStatus('picked')">{{'Picked' | translate}}</ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button color="danger" expand="block" (click)="changeOrderStatus('ready')">{{'Cancel' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="success" expand="block" (click)="changeOrderStatus('picked')">{{'Picked' | translate}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
 
     <!-- -- ongoing -- -->
     <div *ngIf="status == 'picked'">
-        <ion-button color="success" expand="block" (click)="changeOrderStatus('delivered')">{{'Delivered' | translate}}</ion-button>
+      <ion-button color="success" expand="block" (click)="changeOrderStatus('delivered')">{{'Delivered' | translate}}
+      </ion-button>
     </div>
 
 

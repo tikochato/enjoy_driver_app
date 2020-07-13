@@ -48,6 +48,7 @@ export class UtilService {
   translate(str) {
     const currentLang = this.translateService.currentLang;
     console.log('currentLANGUAGE', currentLang);
+    console.log(str);
     const returnValue = this.translateService.translations[currentLang][str];
     if (returnValue === undefined) {
       return this.translateService.translations.en_merch[str];
