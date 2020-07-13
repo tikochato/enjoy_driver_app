@@ -36,6 +36,11 @@ export class LoginPage implements OnInit {
     this.oneSignal.getIds().then((data) => {
       console.log('iddddd', data);
       localStorage.setItem('fcm', data.userId);
+      this.api.setDriverTag(data.userId).subscribe((data) => {
+        console.log(data);
+      }, error => {
+        console.log('err', error);
+      });
     });
     this.translate.use(localStorage.getItem('language'));
   }
@@ -64,6 +69,12 @@ export class LoginPage implements OnInit {
             this.isLogin = false;
             if (data && data.type === 'delivery') {
               if (data && data.status === 'active') {
+                const fcm = data.fcm_token;
+                this.api.setDriverTag(fcm).subscribe((data) => {
+                  console.log(data);
+                }, error => {
+                  console.log('err', error);
+                });
                 localStorage.setItem('uid', userData.uid);
                 localStorage.setItem('help', userData.uid);
                 const lats = localStorage.getItem('lat');

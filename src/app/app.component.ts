@@ -106,11 +106,13 @@ export class AppComponent {
           console.log('iddddd', data);
           localStorage.setItem('fcm', data.userId);
         });
+        this.oneSignal.clearOneSignalNotifications();
         this.oneSignal.enableSound(true);
         await this.oneSignal.endInit();
       }, 1000);
       this.nativeAudio.preloadSimple('audio', 'assets/alert.mp3').then((data: any) => {
         console.log('dupletx', data);
+        this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
       }, error => {
         console.log(error);
       }).catch(error => {
@@ -122,7 +124,10 @@ export class AppComponent {
         this.nativeAudio.setVolumeForComplexAsset('audio', 1);
         this.presentActionSheet();
       });
-      this.oneSignal.inFocusDisplaying(2);
+      this.oneSignal.handleNotificationOpened().subscribe(data => {
+        this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
+      });
+      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
       this.getLocation();
     });
   }

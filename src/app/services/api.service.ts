@@ -43,7 +43,7 @@ export class ApiService {
         .then(res => {
           if (res.user) {
             this.db.collection('users').doc(res.user.uid).update({
-              fcm_token: localStorage.getItem('fcm') ? localStorage.getItem('fcm') : '',
+              fcm_token: localStorage.getItem('fcm') || '',
             });
             this.authInfo$.next(new AuthInfo(res.user.uid));
             resolve(res.user);
@@ -181,6 +181,18 @@ export class ApiService {
         .set('Authorization', `Basic ${environment.onesignal.restKey}`)
     };
     return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
+  }
+
+  setDriverTag(playerId) {
+    const body = {
+      app_id: environment.onesignal.appId,
+      tags: { user_type: 'driver' }
+    };
+    const header = {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+    };
+    return this.http.put(`https://onesignal.com/api/v1/players/${playerId}`, body, header);
   }
 
   public getMyOrders(id): Promise<any> {
