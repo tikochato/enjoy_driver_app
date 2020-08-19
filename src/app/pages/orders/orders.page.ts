@@ -25,7 +25,6 @@ export class OrdersPage implements OnInit {
       if (localStorage.getItem('uid')) {
         this.adb.collection('orders', ref =>
           ref.where('driverId', '==', localStorage.getItem('uid'))).snapshotChanges().subscribe((data: any) => {
-            console.log('paylaoddddd----->>>>', data);
             if (data) {
               this.getReadyOrders();
               this.getOrders();
@@ -47,7 +46,6 @@ export class OrdersPage implements OnInit {
     this.readyOrders = [];
     return this.api.getReadyOrders().then((data: any) => {
       this.dummy = [];
-      console.log(data);
       if (data) {
         data.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
         this.readyOrders = [];
@@ -67,8 +65,6 @@ export class OrdersPage implements OnInit {
     this.oldOrders = [];
     return this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
       this.dummy = [];
-      console.log('My orders');
-      console.log(data);
       if (data) {
         data.sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
         this.orders = [];

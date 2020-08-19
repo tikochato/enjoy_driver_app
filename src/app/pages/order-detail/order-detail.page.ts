@@ -45,7 +45,6 @@ export class OrderDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log(data);
       this.tab_id = data.id;
       this.id = data.id;
       this.getOrder();
@@ -54,12 +53,9 @@ export class OrderDetailPage implements OnInit {
 
   getOrder() {
     // this.util.show();
-    console.log(`get order by id: ${this.id}`);
     this.api.getOrderById(this.id).then((data) => {
       // this.util.hide();
       this.loaded = true;
-      console.log(`Order id: ${this.id}`);
-      console.log(data);
       if (data) {
         this.grandTotal = data.grandTotal;
         this.orders = JSON.parse(data.order);
@@ -79,7 +75,6 @@ export class OrderDetailPage implements OnInit {
         this.payment = data.paid;
         this.myname = data.dId ? data.dId.fullname: '';
         this.token = data.uid.fcm_token;
-        console.log('this', this.orders);
       }
     }).catch(error => {
       console.log('error in order', error);
@@ -93,7 +88,6 @@ export class OrderDetailPage implements OnInit {
     this.util.show();
     const userId = localStorage.getItem('uid');
     this.api.updateOrderStatus(this.id, status, userId).then((data) => {
-      console.log('data', data);
       const msg = this.util.translate('Your Order is ') + this.util.translate(status) + this.util.translate(' By ') + this.restName;
       if (status === 'delivered' || status === 'cancel') {
         const parm = {
@@ -106,7 +100,6 @@ export class OrderDetailPage implements OnInit {
         });
       }
       this.api.sendNotification(msg, 'Order ' + status, this.token).subscribe((data) => {
-        console.log(data);
         this.util.hide();
       }, error => {
         this.util.hide();
@@ -131,7 +124,6 @@ export class OrderDetailPage implements OnInit {
   }
 
   changeOrderStatus(status) {
-    console.log('order status', status);
     if (status) {
       this.changeStatus(status);
     }
@@ -147,7 +139,6 @@ export class OrderDetailPage implements OnInit {
   }
 
   call() {
-    // window.open('https://api.whatsapp.com/send?phone=91' + this.userphone);
     window.open('tel:' + this.userphone);
   }
 
@@ -164,7 +155,6 @@ export class OrderDetailPage implements OnInit {
     this.util.show();
     const userId = localStorage.getItem('uid');
     this.api.updateOrderStatus(this.id, 'ongoing', userId).then((data) => {
-      console.log(data);
       this.util.hide();
       const msg = this.myname + this.util.translate(' Picked up your order');
       this.api.sendNotification(msg, this.util.translate('Order Picked'), this.token).subscribe(data => {
@@ -194,7 +184,6 @@ export class OrderDetailPage implements OnInit {
     this.util.show();
     const userId = localStorage.getItem('uid');
     this.api.updateOrderStatus(this.id, 'delivered', userId).then((data) => {
-      console.log(data);
       this.util.hide();
       const msg = this.myname + this.util.translate(' Delivered your order');
       const parm = {

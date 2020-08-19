@@ -44,7 +44,6 @@ export class TrackerPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log('data=>', data);
       if (data.hasOwnProperty('id')) {
         this.id = data.id;
         this.getOrder();
@@ -60,8 +59,6 @@ export class TrackerPage implements OnInit {
     this.util.show();
     this.api.getOrderById(this.id).then((data) => {
       this.util.hide();
-      console.log("getOrderById");
-      console.log(data);
       if (data) {
         this.dName = data.dId.fullname;
         this.dCover = data.uid.coverImage;
@@ -73,7 +70,6 @@ export class TrackerPage implements OnInit {
         this.totalOrders = JSON.parse(data.order);
         this.paid = data.paid;
         // this.getDriverInfo();
-        console.log('my order', this.totalOrders);
         this.loadMap(parseFloat(data.address.lat), parseFloat(data.address.lng), parseFloat(data.vid.lat), parseFloat(data.vid.lng));
       }
 
@@ -92,7 +88,6 @@ export class TrackerPage implements OnInit {
     var latlng = new google.maps.LatLng(this.driverLat, this.driverLng);
     map.setCenter(latlng);
     marker.setPosition(latlng);
-    console.log("Updating runner position");
   }
 
   loadMap(latOri, lngOri, latDest, lngDest) {
@@ -215,7 +210,6 @@ export class TrackerPage implements OnInit {
     }, 12000);
   }
   ionViewDidLeave() {
-    console.log('leaae');
     clearInterval(this.interval);
   }
 }

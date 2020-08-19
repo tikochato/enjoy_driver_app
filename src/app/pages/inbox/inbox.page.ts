@@ -22,7 +22,6 @@ export class InboxPage implements OnInit {
     this.getMessages();
     this.adb.collection('users').doc(localStorage.getItem('help')).snapshotChanges().subscribe((data) => {
       this.api.getProfile(localStorage.getItem('help')).then((info) => {
-        console.log(info);
         if (info && info.count) {
           this.count = info.count;
         } else {
@@ -36,13 +35,10 @@ export class InboxPage implements OnInit {
 
   getMessages() {
     this.adb.collection('messages').doc(this.id).collection('chats').snapshotChanges().subscribe((data) => {
-      console.log(data);
       this.api.getMessages(this.id).then(info => {
-        console.log(info);
         info.sort((a, b) =>
           new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
         this.messages = info;
-        console.log('info', this.messages);
         this.scrollToBottomOnInit();
       }).catch(error => {
         console.log(error);
@@ -55,12 +51,9 @@ export class InboxPage implements OnInit {
   }
 
   send() {
-    console.log('this.mess', this.message);
-
     if (this.message && this.id) {
       const text = this.message;
       this.message = '';
-      console.log('send');
       const id = Math.floor(100000000 + Math.random() * 900000000);
       const data = {
         msg: text,

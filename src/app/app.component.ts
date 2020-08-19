@@ -30,7 +30,6 @@ export class AppComponent {
   ) {
 
     const lng = localStorage.getItem('language');
-    console.log('----------', lng);
     if (!lng || lng === null) {
       localStorage.setItem('language', 'spanish');
     }
@@ -39,7 +38,6 @@ export class AppComponent {
   }
   updateLocation(lat, lng) {
     if (localStorage.getItem('uid')) {
-      // console.log('can update');
       const param = {
         lat: lat,
         lng: lng
@@ -53,8 +51,6 @@ export class AppComponent {
   }
   getLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      // console.log(resp);
-      // console.log('current lat', resp);
       localStorage.setItem('lat', resp.coords.latitude.toString());
       localStorage.setItem('lng', resp.coords.longitude.toString());
       this.updateLocation(resp.coords.latitude, resp.coords.longitude);
@@ -64,7 +60,6 @@ export class AppComponent {
 
     let watch = this.geolocation.watchPosition();
     watch.subscribe((data) => {
-      // console.log('live update', data);
       localStorage.setItem('lat', data.coords.latitude.toString());
       localStorage.setItem('lng', data.coords.longitude.toString());
       this.updateLocation(data.coords.latitude, data.coords.longitude);
@@ -79,7 +74,6 @@ export class AppComponent {
         text: this.util.translate('OK'),
         icon: 'volume-mute',
         handler: () => {
-          console.log('Delete clicked');
           this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
         }
       }, {
@@ -87,7 +81,6 @@ export class AppComponent {
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
           this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
         }
       }]
@@ -103,7 +96,6 @@ export class AppComponent {
       setTimeout(async () => {
         await this.oneSignal.startInit(environment.onesignal.appId, environment.onesignal.googleProjectNumber);
         this.oneSignal.getIds().then((data) => {
-          console.log('iddddd', data);
           localStorage.setItem('fcm', data.userId);
         });
         this.oneSignal.clearOneSignalNotifications();
@@ -111,7 +103,6 @@ export class AppComponent {
         await this.oneSignal.endInit();
       }, 1000);
       this.nativeAudio.preloadSimple('audio', 'assets/alert.mp3').then((data: any) => {
-        console.log('dupletx', data);
         this.nativeAudio.stop('audio').then(() => console.log('done'), () => console.log('error'));
       }, error => {
         console.log(error);
@@ -119,7 +110,6 @@ export class AppComponent {
         console.log(error);
       });
       this.oneSignal.handleNotificationReceived().subscribe(data => {
-        console.log('got order', data);
         this.nativeAudio.play('audio', () => console.log('audio is done playing')).catch(error => console.log(error));
         this.nativeAudio.setVolumeForComplexAsset('audio', 1);
         this.presentActionSheet();

@@ -154,7 +154,6 @@ export class ApiService {
   public getMessages(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('messages').doc(id).collection('chats').get().subscribe((messages: any) => {
-        console.log(messages);
         let data = messages.docs.map(element => {
           let item = element.data();
           item.id = element.id;
@@ -242,7 +241,6 @@ export class ApiService {
   }
 
   public getOrderById(id): Promise<any> {
-    console.log(`getOrderById: ${id}`);
     return new Promise<any>(async (resolve, reject) => {
       try {
         this.adb.collection('orders').doc(id).get().subscribe(async (order: any) => {

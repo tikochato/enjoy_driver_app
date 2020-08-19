@@ -26,13 +26,11 @@ export class ProfilePage implements OnInit {
   }
   getProfile() {
     this.api.getProfile(localStorage.getItem('uid')).then((data) => {
-      console.log('data', data);
       if (data) {
         this.name = data.fullname;
         this.avtar = data.coverImage;
         this.phone = data.phone;
         this.api.getMyReviews(localStorage.getItem('uid')).then(data => {
-          console.log('-->-->', data);
           if (data && data.length) {
             this.review = data;
           }
@@ -62,7 +60,6 @@ export class ProfilePage implements OnInit {
   }
   logout() {
     this.api.logout().then((data) => {
-      console.log(data);
       this.navCtrl.navigateRoot('login');
     })
   }

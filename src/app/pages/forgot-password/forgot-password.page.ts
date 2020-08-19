@@ -23,7 +23,6 @@ export class ForgotPasswordPage implements OnInit {
   ngOnInit() {
   }
   onLogin(form: NgForm) {
-    console.log('form', form);
     this.submitted = true;
     if (form.valid) {
       const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
@@ -35,7 +34,6 @@ export class ForgotPasswordPage implements OnInit {
       this.api.resetPassword(this.login.email).then((data) => {
         this.util.hide();
         this.util.showToast(this.util.translate('Reset Password link is sent to your email'), 'dark', 'bottom');
-        console.log('sent', data);
         this.navCtrl.back();
       }, error => {
         console.log(error);

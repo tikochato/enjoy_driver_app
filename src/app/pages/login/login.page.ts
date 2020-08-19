@@ -34,7 +34,6 @@ export class LoginPage implements OnInit {
       localStorage.setItem('language', 'spanish');
     }
     this.oneSignal.getIds().then((data) => {
-      console.log('iddddd', data);
       localStorage.setItem('fcm', data.userId);
       this.api.setDriverTag(data.userId).subscribe((data) => {
         console.log(data);
@@ -50,8 +49,6 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(form: NgForm) {
-    console.log('form', form);
-
     this.submitted = true;
     if (form.valid) {
       const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
@@ -59,13 +56,10 @@ export class LoginPage implements OnInit {
         this.util.showToast(this.util.translate('Please enter valid email'), 'danger', 'bottom');
         return false;
       }
-      console.log('login');
       this.isLogin = true;
       this.api.login(this.login.email, this.login.password).then((userData) => {
-        console.log(userData);
         if (userData && userData.uid) {
           this.api.getProfile(userData.uid).then(data => {
-            console.log('data', data);
             this.isLogin = false;
             if (data && data.type === 'delivery') {
               if (data && data.status === 'active') {
@@ -80,7 +74,6 @@ export class LoginPage implements OnInit {
                 const lats = localStorage.getItem('lat');
                 const lngs = localStorage.getItem('lng');
                 if (lats && lngs) {
-                  console.log('can update');
                   const param = {
                     lat: lats,
                     lng: lngs

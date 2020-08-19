@@ -36,7 +36,6 @@ export class UtilService {
       spinner: 'bubbles',
     }).then(a => {
       a.present().then(() => {
-        // console.log('presented');
         if (!this.isLoading) {
           a.dismiss().then(() => console.log('abort presenting'));
         }
@@ -47,8 +46,6 @@ export class UtilService {
 
   translate(str) {
     const currentLang = this.translateService.currentLang;
-    console.log('currentLANGUAGE', currentLang);
-    console.log(str);
     const returnValue = this.translateService.translations[currentLang][str];
     if (returnValue === undefined) {
       return this.translateService.translations.en_merch[str];
@@ -166,7 +163,6 @@ export class UtilService {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            //console.log('Cancel clicked');
           }
         }
       ]
@@ -183,7 +179,6 @@ export class UtilService {
   }
 
   apiErrorHandler(err) {
-    //console.log("Error got in service =>", err)
     if (err.status == -1) {
       this.showErrorAlert('Failed To Connect With Server');
     } else if (err.status == 401) {

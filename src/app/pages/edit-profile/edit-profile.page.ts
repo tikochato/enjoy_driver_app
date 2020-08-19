@@ -23,7 +23,6 @@ export class EditProfilePage implements OnInit {
 
   getProfile() {
     this.api.getProfile(localStorage.getItem('uid')).then((data) => {
-      console.log(data);
       if (data) {
         this.name = data.fullname;
         this.descriptions = data.descriptions;
