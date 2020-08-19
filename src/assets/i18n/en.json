@@ -74,5 +74,6 @@
     "currencyCode": "$",
     "cod": "COD",
     "Choose Status": "Choose Status",
-    "Payment Method": "Payment Method"
+    "Payment Method": "Payment Method",
+    "Under Minimum Charges": "Charges for under minimum"
 }

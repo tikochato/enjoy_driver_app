@@ -74,5 +74,6 @@
     "currencyCode": "Q",
     "cod": "Efectivo",
     "Choose Status": "Estado actual",
-    "Payment Method": "Método de Pago"
+    "Payment Method": "Método de Pago",
+    "Under Minimum Charges": "Cargos por compra menor al mínimo"
 }

@@ -17,6 +17,7 @@ export class OrderDetailPage implements OnInit {
   orders: any[] = [];
   serviceTax: any;
   deliveryCharge: any;
+  minimumPurchaseCharge: any = 0;
   status: any;
   time: any;
   total: any;
@@ -64,6 +65,7 @@ export class OrderDetailPage implements OnInit {
         this.orders = JSON.parse(data.order);
         this.serviceTax = data.serviceTax;
         this.deliveryCharge = data.deliveryCharge;
+        this.minimumPurchaseCharge = data.minimumPurchaseCharge;
         this.status = data.status;
         this.time = data.time;
         this.total = data.total;
